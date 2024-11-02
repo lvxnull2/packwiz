@@ -50,6 +50,15 @@ func getProjectIdsViaSearch(query string, versions []string) ([]*modrinthApi.Sea
 	return res.Hits, nil
 }
 
+func getVersionsFromHashes(hashes []string, algorithm string) (map[string]*modrinthApi.Version, error) {
+	versions, err := mrDefaultClient.VersionFiles.GetFromHashes(hashes, algorithm)
+	if err != nil {
+		return nil, err
+	}
+
+	return versions, nil
+}
+
 // "Loaders" that are supported regardless of the configured mod loaders
 var defaultMRLoaders = []string{
 	// TODO: check if Canvas/Iris/Optifine are installed? suggest installing them?
